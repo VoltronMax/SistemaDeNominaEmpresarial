@@ -1,15 +1,15 @@
 package org.sistemaGestorNomina;
 
 public class Pago {
-    private int saldo;
+    private final int SALDO;
     private Empleado e;
 
     public Pago(Empleado e){
-        this.saldo = e.getSalario();
+        this.SALDO = e.getSalario();
         this.e = e;
     }
 
     public int getSaldo(){
-        return saldo;
+        return SALDO;
     }
 }
