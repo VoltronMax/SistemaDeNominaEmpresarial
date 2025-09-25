@@ -1,0 +1,32 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+group = 'org.example'
+version = '1.0-SNAPSHOT'
+application{
+    mainClass = "org.sistemaGestorNomina.Main"
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+// Cacharreo gradle
+
+//def nombreVariable
+//nombreVariable = "caramba"
+
+//def funcionSumar(a,b){return a+b}
+
+//println "cabronete

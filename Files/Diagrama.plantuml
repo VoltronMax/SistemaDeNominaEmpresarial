@@ -1,0 +1,51 @@
+@startuml
+
+enum HoraExtra{
+DIURNA
+NOCTURNA
+DOMINICAL
+FESTIVO
+}
+
+enum Cargo{
+EMPLEADO
+ADMIN
+OWNER
+}
+
+enum DeduccionSalarial{
+SALUD
+PENSION
+ARL
+}
+
+class Registro{
+- LocalDate fechaRegistro
+- String descripcion
+}
+
+
+class Pago{
+-int SUELDO_BASE
+-int cantidadDesembolso
+-LocalDate fechaPago
+-long cantidad
+-String descripcion
+-HoraExtra horarioTrabajado
+-boolean pagoMensual
+
+}
+
+class Empleado{
+-int id
+-String nombreCompleto
+-String cedula
+-long salarioBase
+-Cargo cargo
+-int horas trabajadas
+}
+
+Empleado --* Pago
+
+
+@enduml
