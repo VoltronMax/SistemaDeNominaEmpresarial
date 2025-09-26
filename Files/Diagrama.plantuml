@@ -7,16 +7,16 @@ DOMINICAL
 FESTIVO
 }
 
-enum Cargo{
-EMPLEADO
-ADMIN
-OWNER
-}
-
 enum DeduccionSalarial{
 SALUD
 PENSION
 ARL
+}
+
+enum Cargo{
+EMPLEADO
+ADMIN
+OWNER
 }
 
 class Registro{
@@ -24,28 +24,29 @@ class Registro{
 - String descripcion
 }
 
-
-class Pago{
--int SUELDO_BASE
--int cantidadDesembolso
+class Nomina{
+-int montoPagado
 -LocalDate fechaPago
--long cantidad
+-int montoBruto
 -String descripcion
--HoraExtra horarioTrabajado
--boolean pagoMensual
-
+-int horasTrabajadas
+-Empleado e
+-List <Registro> registros
 }
 
 class Empleado{
+-int sueldoBase
 -int id
 -String nombreCompleto
 -String cedula
--long salarioBase
 -Cargo cargo
--int horas trabajadas
+-List<Nomina> nominas
 }
 
-Empleado --* Pago
+class GestorNomina{
+-List<Empleado>empleados
+}
+
 
 
 @enduml
