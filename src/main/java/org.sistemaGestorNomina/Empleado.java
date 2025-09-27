@@ -2,6 +2,7 @@ package org.sistemaGestorNomina;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Empleado {
 
@@ -64,6 +65,18 @@ public class Empleado {
 
     public void setNominas(Nomina e) {
         this.nominas.add(e);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Empleado empleado = (Empleado) o;
+        return Objects.equals(cedula, empleado.cedula);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(cedula);
     }
 
     @Override

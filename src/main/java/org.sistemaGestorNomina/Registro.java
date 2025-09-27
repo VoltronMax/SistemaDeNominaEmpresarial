@@ -26,6 +26,34 @@ public class Registro {
         this.conceptoDeduccion = conceptoDeduccion;
     }
 
+    public LocalDate getFechaRegistro() {
+        return fechaRegistro;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public Horas getHoras() {
+        return horas;
+    }
+
+    public void setHoras(Horas horas) {
+        this.horas = horas;
+    }
+
+    public DeduccionSalarial getConceptoDeduccion() {
+        return conceptoDeduccion;
+    }
+
+    public void setConceptoDeduccion(DeduccionSalarial conceptoDeduccion) {
+        this.conceptoDeduccion = conceptoDeduccion;
+    }
+
     @Override
     public String toString() {
         return "Registro{" +

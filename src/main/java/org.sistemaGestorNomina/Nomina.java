@@ -50,7 +50,24 @@ public class Nomina {
         this.montoBruto = this.empleado.getSueldoBase();
     }
 
+    public void setRegistros(Registro r){
+        registros.add(r);
+    }
 
+    public List<Registro> getRegistros(){
+        return registros;
+    }
 
-
+    @Override
+    public String toString() {
+        return "Nomina{" +
+                "fechaPago=" + fechaPago +
+                ", empleado=" + empleado +
+                ", horasTrabajadas=" + horasTrabajadas +
+                ", montoBruto=" + montoBruto +
+                ", montoPagado=" + montoPagado +
+                ", titulo='" + titulo + '\'' +
+                ", registros=" + registros +
+                '}';
+    }
 }
