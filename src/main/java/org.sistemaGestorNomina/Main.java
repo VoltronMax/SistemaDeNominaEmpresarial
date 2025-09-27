@@ -11,5 +11,6 @@ public class Main {
         gestoruwu.agregarEmpleado(uwu);
         var dx = gestoruwu.salarioConAuxilioDeTransporte("93130337");
         System.out.printf("%.2f", dx) ;
+        System.out.println(gestoruwu.listarEmpleados());
     }
 }

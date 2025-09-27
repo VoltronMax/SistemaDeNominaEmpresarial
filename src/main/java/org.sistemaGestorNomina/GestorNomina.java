@@ -36,6 +36,7 @@ public class GestorNomina {
         registros = new ArrayList<>();
     }
 
+    //Atajos
     public void agregarEmpleado(Empleado e){
         empleados.put(e.getCedula(), e);
     }
@@ -44,6 +45,15 @@ public class GestorNomina {
         return empleados.get(c);
     }
 
+    public List<Empleado> listarEmpleados(){
+        List<Empleado> emps = new ArrayList<>();
+        for(Map.Entry<String, Empleado> i : empleados.entrySet()){
+            emps.add(i.getValue());
+        }
+        return emps;
+    }
+
+    //Horas
     public void registrarHoras(String c, int h){
         if(accesoEmpleado(c) != null){
             Nomina n = new Nomina(accesoEmpleado(c));
@@ -97,17 +107,5 @@ public class GestorNomina {
         return 0.0;
     }
      */
-
-
-
-
-
-
-
-
-
-
-
-
 
 }
