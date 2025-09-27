@@ -9,15 +9,13 @@ public class Nomina {
     private LocalDate fechaPago;
     private Empleado empleado;
     private int horasTrabajadas;
-    private int montoBruto;
-    private int montoPagado;
+    private double montoBruto;
+    private double montoPagado;
     private String titulo;
     private List<Registro> registros;
 
-    public Nomina(Empleado empleado, int horasTrabajadas, int montoBruto){
+    public Nomina(Empleado empleado){
         this.empleado = empleado;
-        this.horasTrabajadas = horasTrabajadas;
-        this.montoBruto = montoBruto;
         registros = new ArrayList<>();
         setMontoBruto();
     }
@@ -42,7 +40,7 @@ public class Nomina {
         this.horasTrabajadas = horasTrabajadas;
     }
 
-    public int getMontoBruto() {
+    public double getMontoBruto() {
         return montoBruto;
     }
 
@@ -56,6 +54,10 @@ public class Nomina {
 
     public List<Registro> getRegistros(){
         return registros;
+    }
+
+    public void setMontoPagado(double montoPagado){
+        this.montoPagado = montoPagado;
     }
 
     @Override
