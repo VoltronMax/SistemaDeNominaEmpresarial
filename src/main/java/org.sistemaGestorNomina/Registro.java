@@ -9,6 +9,11 @@ public class Registro {
     private Horas horas;
     private DeduccionSalarial conceptoDeduccion;
 
+    public Registro(LocalDate fechaRegistro, String descripcion){
+        this.fechaRegistro = LocalDate.now();
+        this.descripcion = descripcion;
+    }
+
     public Registro(LocalDate fechaRegistro, String descripcion, Horas horas){
         this.fechaRegistro = LocalDate.now();
         this.descripcion = descripcion;
@@ -21,10 +26,13 @@ public class Registro {
         this.conceptoDeduccion = conceptoDeduccion;
     }
 
-    public Registro(LocalDate fechaRegistro, String descripcion){
-        this.fechaRegistro = LocalDate.now();
-        this.descripcion = descripcion;
+    @Override
+    public String toString() {
+        return "Registro{" +
+                "fechaRegistro=" + fechaRegistro +
+                ", descripcion='" + descripcion + '\'' +
+                ", horas=" + horas +
+                ", conceptoDeduccion=" + conceptoDeduccion +
+                '}';
     }
-
-
 }

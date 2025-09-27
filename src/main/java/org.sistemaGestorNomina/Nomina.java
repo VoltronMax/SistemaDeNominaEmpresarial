@@ -19,16 +19,36 @@ public class Nomina {
         this.horasTrabajadas = horasTrabajadas;
         this.montoBruto = montoBruto;
         registros = new ArrayList<>();
+        setMontoBruto();
     }
 
+    public LocalDate getFechaPago() {
+        return fechaPago;
+    }
 
+    public Empleado getEmpleado() {
+        return empleado;
+    }
 
+    public void setEmpleado(Empleado empleado) {
+        this.empleado = empleado;
+    }
 
+    public int getHorasTrabajadas() {
+        return horasTrabajadas;
+    }
 
+    public void setHorasTrabajadas(int horasTrabajadas) {
+        this.horasTrabajadas = horasTrabajadas;
+    }
 
+    public int getMontoBruto() {
+        return montoBruto;
+    }
 
-
-
+    private void setMontoBruto() {
+        this.montoBruto = this.empleado.getSueldoBase();
+    }
 
 
 
