@@ -5,8 +5,9 @@ plugins {
 
 group = 'org.example'
 version = '1.0-SNAPSHOT'
+
 application{
-    mainClass = "org.sistemaGestorNomina.Main"
+    mainClass = "org.sistemaGestorNomina.main"
 }
 
 repositories {

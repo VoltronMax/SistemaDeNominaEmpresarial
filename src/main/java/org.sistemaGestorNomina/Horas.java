@@ -5,5 +5,5 @@ public enum Horas {
     EXTRA_DIURNA,
     EXTRA_NOCTURNA,
     EXTRA_DOMINICAL,
-    EXTRA_FESTIVO;
+    EXTRA_FESTIVO
 }
