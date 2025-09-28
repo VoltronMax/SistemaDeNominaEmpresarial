@@ -14,7 +14,7 @@ public class GestorNomina {
     //Descuentos legales
     private static final double PORCENTAJE_SALUD = 0.04;
     private static final double PORCENTAJE_PENSION = 0.04;
-    private static final double PORCENTAJE_ARL = 0.05; //se redondea
+    private static final double PORCENTAJE_ARL = 0.05; //se redondea, se descuenta a la empresa
 
     // Horas extra
     private static final double PORCENTAJE_EXTRA_DIURNA = 1.25;
@@ -58,7 +58,7 @@ public class GestorNomina {
         Empleado emp = accesoEmpleado(c); //Guarda en una variable el empleado con la cedula indicada
         if(emp==null) return; //Si la cedula no da con un empleado real, termina la funcion
 
-        Nomina n = emp.getNominasPorMes(me); //En una variable de tipo nomina, guarda aquella nomina que exista registrada en el empleado
+        Nomina n = emp.getNominaPorMes(me); //En una variable de tipo nomina, guarda aquella nomina que exista registrada en el empleado
 
         if(n!=null){
             n.setHorasTrabajadas(h); //Si ya hay una nomina con ese mes, aumenta las horas en la nomina correspondiente
@@ -74,14 +74,14 @@ public class GestorNomina {
         if(e==null){
             return null; //Si la cedula no corresponde a un empleado, devuelvo null
         }
-        return  e.getNominasPorMes(mes); //devuelvo la nomina del empleado en ese mes
+        return  e.getNominaPorMes(mes); //devuelvo la nomina del empleado en ese mes
     }
 
     public double salarioOrdinarioBrutoPorMes(String c, Mes m){
         Empleado p = accesoEmpleado(c);
         if(p==null) return 0.0;
 
-        Nomina n = p.getNominasPorMes(m);
+        Nomina n = p.getNominaPorMes(m);
 
         if(n==null){
             n = new Nomina(p, m);
@@ -107,11 +107,47 @@ public class GestorNomina {
     //A calcular al final de la nomina
     public double salarioConAuxilioDeTransporte(String c, Mes mes) {
         if (accesoSalario(c) != 0.0) {
-            Registro r = new Registro(LocalDate.now(), "Auxilio de transporte obligatorio", Mes.ENERO);
+            Registro r = new Registro(LocalDate.now(), "Auxilio de transporte obligatorio", mes);
             agregarRegistro(r);
             return accesoSalario(c) + AUXILIO_DE_TRANSPORTE;
         }
         return 0.0;
+    }
+
+    public double calcularDeducciones(String c, Mes m){
+
+        //Guarda un empleado segun la cedula vinculada
+        Empleado a = accesoEmpleado(c);
+        if(a==null) return 0.0; //Si la cedula no esta vinculada a un usuario, no retorna un valor
+        Nomina e = a.getNominaPorMes(m);
+        if(e==null)return 0.0;
+
+        Registro r = new Registro(LocalDate.now(), "Deducciones", m);
+        agregarRegistro(r);
+
+        double deduccionSalud =  e.getMontoBruto() * PORCENTAJE_SALUD;
+        double deduccionArl= e.getMontoBruto() * PORCENTAJE_ARL;
+        double deduccionPension= e.getMontoBruto() * PORCENTAJE_PENSION;
+        double deduccionParafiscales = e.getMontoBruto() * PORCENTAJE_PARAFISCALES;
+        String cam = String.valueOf(deduccionArl);
+        String cem = String.valueOf(deduccionParafiscales);
+
+        Registro j = new Registro(LocalDate.now(), cem, DeduccionSalarial.PARAFISCALES, m);
+        Registro h = new Registro(LocalDate.now(), cam, DeduccionSalarial.ARL, m);
+        agregarRegistro(h);
+        agregarRegistro(j);
+
+        Registro s = new Registro(LocalDate.now(), "Descuento por: ", DeduccionSalarial.SALUD, m);
+        e.setRegistros(s);
+
+        Registro p = new Registro(LocalDate.now(), "Descuento por: ", DeduccionSalarial.PENSION, m);
+        e.setRegistros(p);
+
+        double tot = deduccionPension + deduccionSalud;
+        double neto = e.getMontoBruto() - tot;
+        e.setMontoPagado(neto);
+
+        return tot;
     }
 
     public List<Registro> mostrarRegistros(){

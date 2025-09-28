@@ -59,7 +59,7 @@ public class Empleado {
         this.cargo = cargo;
     }
 
-    public Nomina getNominasPorMes(Mes m){
+    public Nomina getNominaPorMes(Mes m){
         return nominas.get(m);
     }
 
