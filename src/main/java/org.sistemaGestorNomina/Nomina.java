@@ -6,7 +6,7 @@ import java.util.List;
 
 public class Nomina {
 
-    private Meses mes;
+    private Mes mes;
     private LocalDate fechaPago;
     private Empleado empleado;
     private int horasTrabajadas;
@@ -15,7 +15,7 @@ public class Nomina {
     private String titulo;
     private List<Registro> registros;
 
-    public Nomina(Empleado empleado, Meses mes){
+    public Nomina(Empleado empleado, Mes mes){
         this.empleado = empleado;
         registros = new ArrayList<>();
         this.mes = mes;
@@ -50,11 +50,11 @@ public class Nomina {
         this.montoBruto = this.empleado.getSueldoBase();
     }
 
-    public Meses getMes() {
+    public Mes getMes() {
         return mes;
     }
 
-    public void setMes(Meses mes) {
+    public void setMes(Mes mes) {
         this.mes = mes;
     }
 

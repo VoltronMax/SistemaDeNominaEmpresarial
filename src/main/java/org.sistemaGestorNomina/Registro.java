@@ -8,22 +8,26 @@ public class Registro {
     private String descripcion;
     private Horas horas;
     private DeduccionSalarial conceptoDeduccion;
+    private Mes mes;
 
-    public Registro(LocalDate fechaRegistro, String descripcion){
+    public Registro(LocalDate fechaRegistro, String descripcion, Mes mes){
         this.fechaRegistro = LocalDate.now();
         this.descripcion = descripcion;
+        this.mes = mes;
     }
 
-    public Registro(LocalDate fechaRegistro, String descripcion, Horas horas){
+    public Registro(LocalDate fechaRegistro, String descripcion, Horas horas, Mes mes){
         this.fechaRegistro = LocalDate.now();
         this.descripcion = descripcion;
         this.horas = horas;
+        this.mes = mes;
     }
 
-    public Registro(LocalDate fechaRegistro, String descripcion, DeduccionSalarial conceptoDeduccion){
+    public Registro(LocalDate fechaRegistro, String descripcion, DeduccionSalarial conceptoDeduccion, Mes mes){
         this.fechaRegistro = LocalDate.now();
         this.descripcion = descripcion;
         this.conceptoDeduccion = conceptoDeduccion;
+        this.mes = mes;
     }
 
     public LocalDate getFechaRegistro() {

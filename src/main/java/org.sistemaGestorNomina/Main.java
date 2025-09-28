@@ -6,7 +6,7 @@ public class Main {
 
         //prueba
         Empleado uwu = new Empleado("uwu lopez", "93130337", Cargo.EMPLEADO, 1_500_000);
-        Nomina nominauwu = new Nomina(uwu);
+        Nomina nominauwu = new Nomina(uwu, Mes.ABRIL);
         GestorNomina gestoruwu = new GestorNomina();
         gestoruwu.agregarEmpleado(uwu);
         var dx = gestoruwu.salarioConAuxilioDeTransporte("93130337");

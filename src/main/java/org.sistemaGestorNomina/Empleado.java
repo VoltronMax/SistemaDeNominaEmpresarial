@@ -1,8 +1,6 @@
 package org.sistemaGestorNomina;
 
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Objects;
 import java.util.Map;
 
@@ -13,7 +11,7 @@ public class Empleado {
     private final int id;
     private Cargo cargo;
     private double sueldoBase;
-    private Map<Meses, Nomina> nominas;
+    private Map<Mes, Nomina> nominas;
     private static int contador  = 1;
 
     public Empleado(String nombreCompleto, String cedula, Cargo cargo, double sueldoBase){
@@ -61,11 +59,11 @@ public class Empleado {
         this.cargo = cargo;
     }
 
-    public Nomina getNominasPorMes(Meses m){
+    public Nomina getNominasPorMes(Mes m){
         return nominas.get(m);
     }
 
-    public void setNominas(Meses m, Nomina n) {
+    public void setNominas(Mes m, Nomina n) {
         this.nominas.put(m, n);
     }
 

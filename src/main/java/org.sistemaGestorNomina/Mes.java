@@ -1,6 +1,6 @@
 package org.sistemaGestorNomina;
 
-public enum Meses {
+public enum Mes {
     ENERO,
     FEBRERO,
     MARZO,

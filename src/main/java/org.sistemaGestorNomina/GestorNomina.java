@@ -54,23 +54,30 @@ public class GestorNomina {
     }
 
     //Horas
-    public void registrarHoras(String c, int h, Meses mes){
+    public void registrarHoras(String c, int h, Mes me){
         Empleado emp = accesoEmpleado(c); //Guarda en una variable el empleado con la cedula indicada
         if(emp==null) return; //Si la cedula no da con un empleado real, termina la funcion
 
-        Nomina n = emp.getNominasPorMes(mes); //En una variable de tipo nomina, guarda aquella nomina que exista registrada en el empleado
+        Nomina n = emp.getNominasPorMes(me); //En una variable de tipo nomina, guarda aquella nomina que exista registrada en el empleado
 
         if(n!=null){
             n.setHorasTrabajadas(h); //Si ya hay una nomina con ese mes, aumenta las horas en la nomina correspondiente
         } else {
-            Nomina nueo = new Nomina(emp, mes); //Si no, crea la nueva nomina correspondiente a ese mes y aumenta las horas
+            Nomina nueo = new Nomina(emp, me); //Si no, crea la nueva nomina correspondiente a ese mes y aumenta las horas
             nueo.setHorasTrabajadas(h);
-            emp.setNominas(mes, nueo);
+            emp.setNominas(me, nueo);
         }
     }
 
-    public double salarioOrdinarioBruto(String c){
+    public Nomina obtenerNominaMes(String c, Mes mes){
+        Empleado e = accesoEmpleado(c);
+        if(e==null){
+            return null;
+        }
+        return  e.getNominasPorMes(mes);
+    }
 
+    public double salarioOrdinarioBruto(String c){
         return (accesoSalario(c) * HORAS_MENSUALES);
 
     }
@@ -84,9 +91,9 @@ public class GestorNomina {
     }
 
     //A calcular al final de la nomina
-    public double salarioConAuxilioDeTransporte(String c) {
+    public double salarioConAuxilioDeTransporte(String c, Mes mes) {
         if (accesoSalario(c) != 0.0) {
-            Registro r = new Registro(LocalDate.now(), "Auxilio de transporte obligatorio");
+            Registro r = new Registro(LocalDate.now(), "Auxilio de transporte obligatorio", Mes.ENERO);
             agregarRegistro(r);
             return accesoSalario(c) + AUXILIO_DE_TRANSPORTE;
         }
