@@ -45,12 +45,12 @@ public class GestorNomina {
         return empleados.get(c); //devuelve un empleado respecto a el numero de cedula asociado
     }
 
-    public List<Empleado> listarEmpleados(){
-        List<Empleado> emps = new ArrayList<>(); //Crea una lista para facilitar la impresion e iteracion de empleados
-        for(Map.Entry<String, Empleado> i : empleados.entrySet()){
-            emps.add(i.getValue()); //Se itera sobre el map respecto al orden de insercion, y asi mismo guarda en la lista
+    public double accesoSalario(String cedula){
+        Empleado emp = empleados.get(cedula);
+        if (emp != null) {
+            return emp.getSueldoBase();
         }
-        return emps; //Devuelve la lista de empleados obtenida del map
+        return 0.0;
     }
 
     //Horas
@@ -67,22 +67,6 @@ public class GestorNomina {
             nueo.setHorasTrabajadas(h);
             emp.setNominas(me, nueo);
         }
-    }
-
-    public void registrarBonificaciones(String c, Mes m, double mo, Bono b){
-        Empleado emp = accesoEmpleado(c);
-        if(emp == null) return;
-
-        Nomina n = emp.getNominaPorMes(m);
-        if(n==null){
-            n = new Nomina(emp, m);
-            emp.setNominas(m, n);
-        }
-
-        double suma = n.getMontoBruto()+mo;
-        n.setMontoBruto(suma);
-        Registro r = new Registro(LocalDate.now(), "Bonificacion por: ", b, m);
-        n.setRegistros(r);
     }
 
     public void registrarHorasExtra(String c, Mes m, int h, Horas ho){
@@ -104,7 +88,7 @@ public class GestorNomina {
                 Registro r = new Registro(LocalDate.now(), "Pago hora extra", ho, m);
                 n.setRegistros(r);
                 n.setMontoBruto(suma);
-         } else if (ho.equals(Horas.EXTRA_DOMINICAL)) {
+            } else if (ho.equals(Horas.EXTRA_DOMINICAL)) {
                 double cal = h * PORCENTAJE_EXTRA_DOMINICAL * valorHoraOrdinaria;
                 double suma = n.getMontoBruto() + cal;
                 Registro r = new Registro(LocalDate.now(), "Pago hora extra", ho, m);
@@ -126,6 +110,24 @@ public class GestorNomina {
         }
     }
 
+    //Bonos
+    public void registrarBonificaciones(String c, Mes m, double mo, Bono b){
+        Empleado emp = accesoEmpleado(c);
+        if(emp == null) return;
+
+        Nomina n = emp.getNominaPorMes(m);
+        if(n==null){
+            n = new Nomina(emp, m);
+            emp.setNominas(m, n);
+        }
+
+        double suma = n.getMontoBruto()+mo;
+        n.setMontoBruto(suma);
+        Registro r = new Registro(LocalDate.now(), "Bonificacion por: ", b, m);
+        n.setRegistros(r);
+    }
+
+    //Nomina
     public Nomina obtenerNominaMes(String c, Mes mes){
         Empleado e = accesoEmpleado(c); //Guarda un empleado con la cedula dada
         if(e==null){
@@ -151,14 +153,6 @@ public class GestorNomina {
             n.setMontoBruto(calculo);
         }
         return n.getMontoBruto();
-    }
-
-    public double accesoSalario(String cedula){
-        Empleado emp = empleados.get(cedula);
-        if (emp != null) {
-            return emp.getSueldoBase();
-        }
-        return 0.0;
     }
 
     //A calcular al final de la nomina
@@ -207,27 +201,37 @@ public class GestorNomina {
         return tot;
     }
 
-    public List<Registro> mostrarRegistros(){
-        return registros;
+    //Listas
+    public List<Empleado> listarEmpleados(){
+        List<Empleado> emps = new ArrayList<>(); //Crea una lista para facilitar la impresion e iteracion de empleados
+        for(Map.Entry<String, Empleado> i : empleados.entrySet()){
+            emps.add(i.getValue()); //Se itera sobre el map respecto al orden de insercion, y asi mismo guarda en la lista
+        }
+        return emps; //Devuelve la lista de empleados obtenida del map
+    }
+
+    public List<Nomina>listarNominasPorEmpleado(String c){
+        List<Nomina>listaNominas = new ArrayList<>();
+        Empleado emp = accesoEmpleado(c);
+        if(emp==null) return listaNominas;
+
+        for (Nomina n : emp.getNominas().values()){
+            listaNominas.add(n);
+        }
+        return listaNominas;
+    }
+
+    public List<Registro> listarRegistrosPorMes(Mes m){
+        List<Registro> registroMes = new ArrayList<>();
+        for(Registro r : registros) {
+            if (r.getMes() == m) {
+                registroMes.add(r);
+            }
+        }
+        return registroMes;
     }
 
     public void agregarRegistro(Registro r){
         registros.add(r);
     }
-
-    public int getHorasMensuales(){
-        return HORAS_MENSUALES;
-    }
-
-    /* public Double salarioConAuxilioDeTransporte(String cedula){
-        Empleado emp = empleados.get(cedula);
-        if(emp != null){
-            Registro r = new Registro(LocalDate.now(), "Auxilio de transporte obligatorio");
-            agregarRegistro(r);
-            return emp.getSueldoBase()+AUXILIO_DE_TRANSPORTE;
-        }
-        return 0.0;
-    }
-     */
-
 }

@@ -59,6 +59,14 @@ public class Empleado {
         this.cargo = cargo;
     }
 
+    public Map<Mes, Nomina> getNominas() {
+        return nominas;
+    }
+
+    public void setNominas(Map<Mes, Nomina> nominas) {
+        this.nominas = nominas;
+    }
+
     public Nomina getNominaPorMes(Mes m){
         return nominas.get(m);
     }

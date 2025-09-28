@@ -38,6 +38,22 @@ public class Registro {
         this.mes = mes;
     }
 
+    public Mes getMes() {
+        return mes;
+    }
+
+    public void setMes(Mes mes) {
+        this.mes = mes;
+    }
+
+    public Bono getBono() {
+        return bono;
+    }
+
+    public void setBono(Bono bono) {
+        this.bono = bono;
+    }
+
     public LocalDate getFechaRegistro() {
         return fechaRegistro;
     }
