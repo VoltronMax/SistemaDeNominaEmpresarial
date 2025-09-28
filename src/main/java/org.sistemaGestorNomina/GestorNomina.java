@@ -85,6 +85,47 @@ public class GestorNomina {
         n.setRegistros(r);
     }
 
+    public void registrarHorasExtra(String c, Mes m, int h, Horas ho){
+        Empleado emp = accesoEmpleado(c);
+        if(emp == null) return;
+
+        Nomina n = emp.getNominaPorMes(m);
+        if(n==null){
+            n = new Nomina(emp, m);
+            emp.setNominas(m, n);
+        }
+
+        double valorHoraOrdinaria = n.getMontoBruto()/HORAS_MENSUALES;
+
+        if(n.getHorasTrabajadas()>HORAS_MENSUALES){
+            if(ho.equals(Horas.EXTRA_DIURNA)){
+                double cal = h * PORCENTAJE_EXTRA_DIURNA * valorHoraOrdinaria;
+                double suma = n.getMontoBruto() + cal;
+                Registro r = new Registro(LocalDate.now(), "Pago hora extra", ho, m);
+                n.setRegistros(r);
+                n.setMontoBruto(suma);
+         } else if (ho.equals(Horas.EXTRA_DOMINICAL)) {
+                double cal = h * PORCENTAJE_EXTRA_DOMINICAL * valorHoraOrdinaria;
+                double suma = n.getMontoBruto() + cal;
+                Registro r = new Registro(LocalDate.now(), "Pago hora extra", ho, m);
+                n.setRegistros(r);
+                n.setMontoBruto(suma);
+            } else if (ho.equals(Horas.EXTRA_FESTIVO)) {
+                double cal = h * PORCENTAJE_EXTRA_FESTIVO * valorHoraOrdinaria;
+                double suma = n.getMontoBruto() + cal;
+                Registro r = new Registro(LocalDate.now(), "Pago hora extra", ho, m);
+                n.setRegistros(r);
+                n.setMontoBruto(suma);
+            } else if (ho.equals(Horas.EXTRA_NOCTURNA)) {
+                double cal = h * PORCENTAJE_EXTRA_NOCTURNA * valorHoraOrdinaria;
+                double suma = n.getMontoBruto() + cal;
+                Registro r = new Registro(LocalDate.now(), "Pago hora extra", ho, m);
+                n.setRegistros(r);
+                n.setMontoBruto(suma);
+            }
+        }
+    }
+
     public Nomina obtenerNominaMes(String c, Mes mes){
         Empleado e = accesoEmpleado(c); //Guarda un empleado con la cedula dada
         if(e==null){
