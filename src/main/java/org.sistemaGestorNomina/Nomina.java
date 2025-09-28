@@ -19,7 +19,6 @@ public class Nomina {
         this.empleado = empleado;
         registros = new ArrayList<>();
         this.mes = mes;
-        setMontoBruto();
     }
 
     public LocalDate getFechaPago() {
@@ -46,8 +45,8 @@ public class Nomina {
         return montoBruto;
     }
 
-    private void setMontoBruto() {
-        this.montoBruto = this.empleado.getSueldoBase();
+    public void setMontoBruto(double montoBruto) {
+        this.montoBruto = montoBruto;
     }
 
     public Mes getMes() {

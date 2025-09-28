@@ -81,13 +81,12 @@ public class Empleado {
 
     @Override
     public String toString() {
-        return "Empleado{" +
+        return "\nEmpleado{" +
                 "nombreCompleto='" + nombreCompleto + '\'' +
                 ", cedula='" + cedula + '\'' +
                 ", id=" + id +
                 ", cargo=" + cargo +
                 ", sueldoBase=" + sueldoBase +
-                ", nominas=" + nominas +
                 '}';
     }
 }

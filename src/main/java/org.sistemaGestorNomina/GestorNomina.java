@@ -70,16 +70,30 @@ public class GestorNomina {
     }
 
     public Nomina obtenerNominaMes(String c, Mes mes){
-        Empleado e = accesoEmpleado(c);
+        Empleado e = accesoEmpleado(c); //Guarda un empleado con la cedula dada
         if(e==null){
-            return null;
+            return null; //Si la cedula no corresponde a un empleado, devuelvo null
         }
-        return  e.getNominasPorMes(mes);
+        return  e.getNominasPorMes(mes); //devuelvo la nomina del empleado en ese mes
     }
 
-    public double salarioOrdinarioBruto(String c){
-        return (accesoSalario(c) * HORAS_MENSUALES);
+    public double salarioOrdinarioBrutoPorMes(String c, Mes m){
+        Empleado p = accesoEmpleado(c);
+        if(p==null) return 0.0;
 
+        Nomina n = p.getNominasPorMes(m);
+
+        if(n==null){
+            n = new Nomina(p, m);
+            p.setNominas(m, n);
+        }
+
+        if(n.getMontoBruto()==0){
+            double salarioHora = p.getSueldoBase()/(double)HORAS_MENSUALES;
+            double calculo = n.getHorasTrabajadas() * salarioHora;
+            n.setMontoBruto(calculo);
+        }
+        return n.getMontoBruto();
     }
 
     public double accesoSalario(String cedula){
