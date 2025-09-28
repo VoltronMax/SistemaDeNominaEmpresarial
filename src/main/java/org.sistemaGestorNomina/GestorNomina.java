@@ -69,6 +69,22 @@ public class GestorNomina {
         }
     }
 
+    public void registrarBonificaciones(String c, Mes m, double mo, Bono b){
+        Empleado emp = accesoEmpleado(c);
+        if(emp == null) return;
+
+        Nomina n = emp.getNominaPorMes(m);
+        if(n==null){
+            n = new Nomina(emp, m);
+            emp.setNominas(m, n);
+        }
+
+        double suma = n.getMontoBruto()+mo;
+        n.setMontoBruto(suma);
+        Registro r = new Registro(LocalDate.now(), "Bonificacion por: ", b, m);
+        n.setRegistros(r);
+    }
+
     public Nomina obtenerNominaMes(String c, Mes mes){
         Empleado e = accesoEmpleado(c); //Guarda un empleado con la cedula dada
         if(e==null){

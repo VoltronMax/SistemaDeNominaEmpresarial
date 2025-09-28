@@ -9,6 +9,7 @@ public class Registro {
     private Horas horas;
     private DeduccionSalarial conceptoDeduccion;
     private Mes mes;
+    private Bono bono;
 
     public Registro(LocalDate fechaRegistro, String descripcion, Mes mes){
         this.fechaRegistro = LocalDate.now();
@@ -27,6 +28,13 @@ public class Registro {
         this.fechaRegistro = LocalDate.now();
         this.descripcion = descripcion;
         this.conceptoDeduccion = conceptoDeduccion;
+        this.mes = mes;
+    }
+
+    public Registro(LocalDate fechaRegistro, String descripcion, Bono bono, Mes mes){
+        this.fechaRegistro = LocalDate.now();
+        this.descripcion = descripcion;
+        this.bono = bono;
         this.mes = mes;
     }
 
