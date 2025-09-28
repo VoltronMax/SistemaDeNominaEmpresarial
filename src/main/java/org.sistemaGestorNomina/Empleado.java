@@ -61,8 +61,12 @@ public class Empleado {
         this.cargo = cargo;
     }
 
-    public void setNominas(Meses m, Nomina e) {
-        this.nominas.put(m, e);
+    public Nomina getNominasPorMes(Meses m){
+        return nominas.get(m);
+    }
+
+    public void setNominas(Meses m, Nomina n) {
+        this.nominas.put(m, n);
     }
 
     @Override

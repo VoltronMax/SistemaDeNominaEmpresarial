@@ -15,9 +15,10 @@ public class Nomina {
     private String titulo;
     private List<Registro> registros;
 
-    public Nomina(Empleado empleado){
+    public Nomina(Empleado empleado, Meses mes){
         this.empleado = empleado;
         registros = new ArrayList<>();
+        this.mes = mes;
         setMontoBruto();
     }
 

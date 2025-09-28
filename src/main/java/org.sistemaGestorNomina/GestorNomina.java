@@ -38,26 +38,34 @@ public class GestorNomina {
 
     //Atajos
     public void agregarEmpleado(Empleado e){
-        empleados.put(e.getCedula(), e);
+        empleados.put(e.getCedula(), e); //guarda en el gestor rapidamente un usuario respecto a su cedula
     }
 
     public Empleado accesoEmpleado(String c){
-        return empleados.get(c);
+        return empleados.get(c); //devuelve un empleado respecto a el numero de cedula asociado
     }
 
     public List<Empleado> listarEmpleados(){
-        List<Empleado> emps = new ArrayList<>();
+        List<Empleado> emps = new ArrayList<>(); //Crea una lista para facilitar la impresion e iteracion de empleados
         for(Map.Entry<String, Empleado> i : empleados.entrySet()){
-            emps.add(i.getValue());
+            emps.add(i.getValue()); //Se itera sobre el map respecto al orden de insercion, y asi mismo guarda en la lista
         }
-        return emps;
+        return emps; //Devuelve la lista de empleados obtenida del map
     }
 
     //Horas
-    public void registrarHoras(String c, int h){
-        if(accesoEmpleado(c) != null){
-            Nomina n = new Nomina(accesoEmpleado(c));
-            n.setHorasTrabajadas(h);
+    public void registrarHoras(String c, int h, Meses mes){
+        Empleado emp = accesoEmpleado(c); //Guarda en una variable el empleado con la cedula indicada
+        if(emp==null) return; //Si la cedula no da con un empleado real, termina la funcion
+
+        Nomina n = emp.getNominasPorMes(mes); //En una variable de tipo nomina, guarda aquella nomina que exista registrada en el empleado
+
+        if(n!=null){
+            n.setHorasTrabajadas(h); //Si ya hay una nomina con ese mes, aumenta las horas en la nomina correspondiente
+        } else {
+            Nomina nueo = new Nomina(emp, mes); //Si no, crea la nueva nomina correspondiente a ese mes y aumenta las horas
+            nueo.setHorasTrabajadas(h);
+            emp.setNominas(mes, nueo);
         }
     }
 
