@@ -69,6 +69,10 @@ public class Nomina {
         this.montoPagado = montoPagado;
     }
 
+    public double getMontoPagado(){
+        return montoPagado;
+    }
+
     @Override
     public String toString() {
         return "Nomina{" +
